@@ -30,3 +30,26 @@ def make_token():
 
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
+
+@api.route("/signup", methods=["POST"])
+def new_user():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "no data provided"}), 400
+
+    email = data.get("email")
+    password = data.get("password")  
+
+    if not email or not password:
+        return jsonify({"error": "Both email and password are required"}), 400
+
+    if User.query.filter_by(email=email).first():
+        return jsonify({"error": "email already exits"})
+
+    user = User(email=email, password=password, is_active=True) 
+    db.session.add(user)
+    db.session.commit()  
+    user_email = email
+
+    return jsonify({"msg": "User created successfully", "user": user_email}), 201

@@ -9,10 +9,6 @@ export const Login = () => {
     const [password, setPassword] = useState("");
     const redirect = useNavigate();
 
-    const loginOnclick = () => {
-        actions.login(email, password)
-    }
-
     if(store.token && store.token != "" && store.token != undefined) redirect("/")
 
     return (
@@ -35,7 +31,20 @@ export const Login = () => {
                                     <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Example123" value={password} onChange={(e) => setPassword(e.target.value)} />
                                 </div>
                                 <div className="text-center">
-                                    <button className="btn btn-primary mb-3" onClick={() => loginOnclick()}>Login</button>
+                                    <button className="btn btn-primary mb-3" onClick={() => {
+                                        if(email === "" && password === ""){
+                                            alert("You must enter a email and a password")
+                                        }
+                                        else if(email === ""){
+                                            alert("You must enter a email")
+                                        }
+                                        else if(password === ""){
+                                            alert("You must enter a password")
+                                        }
+                                        else {
+                                            actions.login(email, password)
+                                        }
+                                    }}>Login</button>
                                 </div>
                             </>
                         )}
