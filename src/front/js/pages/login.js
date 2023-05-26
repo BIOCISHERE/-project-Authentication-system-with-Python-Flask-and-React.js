@@ -24,6 +24,7 @@ export const Login = () => {
                             "You are logged in with this token " + store.token
                         ) : (
                             <>
+                                <h1 className="text-light">Login</h1>                            
                                 <div className="my-3">
                                     <label htmlFor="exampleInputEmail1" className="form-label text-center text-light">Email address</label>
                                     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="example@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} />

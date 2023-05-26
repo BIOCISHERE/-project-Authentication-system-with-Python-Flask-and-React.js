@@ -77,6 +77,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("There has been an error login in", error)
 				}
 			},
+			logout: () => {
+				sessionStorage.removeItem("token")
+				setStore({token: null})
+			},
 			saveToken: () => {
 				const token = sessionStorage.getItem("token")
 				if(token && token != "" && token != undefined) setStore({token: token})
