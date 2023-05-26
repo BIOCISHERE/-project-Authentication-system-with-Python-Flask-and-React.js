@@ -21,10 +21,18 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+@api.route('/user', methods=['GET'])
+def get_user():
+    user = User.query.all()
+    all_user = list(map(lambda x: x.serialize(), user))
+
+    return jsonify(all_user), 200
+
 @api.route("/token", methods=["POST"])
 def make_token():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
+    
     if email != "test" or password != "test":
         return jsonify({"msg": "Bad email or password"}), 401
 
