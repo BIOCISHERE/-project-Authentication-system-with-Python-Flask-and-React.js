@@ -24,13 +24,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getMessage: async () => {
+				const store = getStore()
+				const opts = {
+					headers: {
+						Authorization: "Bearer " + store.token
+					}
+				}
 				try {
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
+					const resp = await fetch(process.env.BACKEND_URL + "api/hello", opts)
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
-					return data;
+					return true
 				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
@@ -62,7 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + 'api/token', opts)
+					const resp = await fetch(process.env.BACKEND_URL + "api/token", opts)
 					if (resp.status != 200) {
 						alert("Invalid email or password")
 						return false
@@ -71,7 +77,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await resp.json();
 
 					sessionStorage.setItem("token", data.access_token);
+					sessionStorage.setItem("user", email)
 					setStore({token: data.access_token});
+					setStore({user: email})
 					return true;
 				}
 				catch(error){
@@ -80,8 +88,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			logout: () => {
 				sessionStorage.removeItem("token")
+				sessionStorage.removeItem("user")
 				setStore({token: null})
 				setStore({user: null})
+				setStore({message: null})
 			},
 			signup: async (email, password) => {
 				const opts2 = {
