@@ -34,6 +34,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "api/hello", opts)
 					const data = await resp.json()
+					sessionStorage.setItem("message", data.message)
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
 					return true
@@ -125,7 +126,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			saveToken: () => {
 				const token = sessionStorage.getItem("token")
+				const message = sessionStorage.getItem("message")
 				if(token && token != "" && token != undefined) setStore({token: token})
+				if(message && message != "" && message != undefined) setStore({message: message})
 			}
 		}
 	};
