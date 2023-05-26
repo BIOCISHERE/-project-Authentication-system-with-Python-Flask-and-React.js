@@ -81,6 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				sessionStorage.removeItem("token")
 				setStore({token: null})
+				setStore({user: null})
 			},
 			signup: async (email, password) => {
 				const opts2 = {

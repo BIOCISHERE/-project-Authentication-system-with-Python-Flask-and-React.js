@@ -30,14 +30,25 @@ def get_user():
 
 @api.route("/token", methods=["POST"])
 def make_token():
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
+    data = request.get_json()
+
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({'error': 'Email and password are required'}), 400
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user or user.password != password:
+        return jsonify({'error': 'Bad email or password'}), 401        
     
-    if email != "test" or password != "test":
-        return jsonify({"msg": "Bad email or password"}), 401
 
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
+    return jsonify(access_token=access_token), 200
 
 @api.route("/signup", methods=["POST"])
 def new_user():
