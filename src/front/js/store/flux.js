@@ -61,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 				try {
-					const resp = await fetch('https://3001-biocishere-projectauthe-oj3dp7tghwl.ws-us98.gitpod.io/api/token', opts)
+					const resp = await fetch(process.env.BACKEND_URL + 'api/token', opts)
 					if (resp.status != 200) {
 						alert("Invalid email or password")
 						return false
