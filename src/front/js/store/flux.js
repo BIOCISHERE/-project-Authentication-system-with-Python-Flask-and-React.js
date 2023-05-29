@@ -90,6 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				sessionStorage.removeItem("token")
 				sessionStorage.removeItem("user")
+				sessionStorage.removeItem("message")
 				setStore({token: null})
 				setStore({user: null})
 				setStore({message: null})

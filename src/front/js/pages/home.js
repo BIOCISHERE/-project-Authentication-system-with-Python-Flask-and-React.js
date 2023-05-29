@@ -23,7 +23,7 @@ export const Home = () => {
 				{store.message || "Please login"}
 			</div>
 			<div className="mb-2">
-				<Link class="btn btn-primary" to={"/private"} role="button">Test jwt_required</Link>
+				<Link className="btn btn-primary" to={"/private"} role="button">Test jwt_required</Link>
 			</div>
 			<p>
 				This boilerplate comes with lots of documentation:{" "}

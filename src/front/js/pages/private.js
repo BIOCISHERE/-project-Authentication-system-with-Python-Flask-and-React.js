@@ -20,7 +20,7 @@ export const Private = () => {
                     <h4>Here is a meme i found</h4>
                     <div className="row">
                         <div className="col d-flex align-items-center justify-content-center">
-                            <img src="https://pbs.twimg.com/media/FVtFdCoXEAAjLqx.jpg" class="img-fluid" alt="..." />
+                            <img src="https://pbs.twimg.com/media/FVtFdCoXEAAjLqx.jpg" className="img-fluid" alt="..." />
                         </div>
                     </div>
                 </div>
